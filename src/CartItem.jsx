@@ -5,13 +5,12 @@ function CartItem() {
   const cart = useSelector((state) => state.cart.items);
   const dispatch = useDispatch();
 
-  const total = cart.reduce(
-    (sum, item) => sum + item.price * item.quantity,
-    0
-  );
+  const getTotal = () => {
+    return cart.reduce((acc, item) => acc + item.price * item.quantity, 0);
+  };
 
   return (
-    <div>
+    <div style={{ padding: "20px" }}>
       <h2>🛒 Shopping Cart</h2>
 
       {cart.length === 0 ? (
@@ -19,35 +18,68 @@ function CartItem() {
       ) : (
         <>
           {cart.map((item) => (
-            <div key={item.id} style={{ marginBottom: "15px" }}>
-              <h4>{item.name}</h4>
-              <p>Price: ${item.price}</p>
+            <div
+              key={item.id}
+              style={{
+                display: "flex",
+                alignItems: "center",
+                gap: "15px",
+                borderBottom: "1px solid #ccc",
+                padding: "10px 0",
+              }}
+            >
+              {/* Imagen del producto */}
+              <img
+                src={item.image}
+                alt={item.name}
+                width="80"
+                height="80"
+              />
 
-              <p>Quantity: {item.quantity}</p>
+              {/* Info */}
+              <div style={{ flex: 1 }}>
+                <h4>{item.name}</h4>
+                <p>Price: ${item.price}</p>
+                <p>Subtotal: ${item.price * item.quantity}</p>
+              </div>
 
+              {/* Controles cantidad */}
+              <div>
+                <button
+                  onClick={() =>
+                    dispatch(updateQuantity({ id: item.id, type: "decrease" }))
+                  }
+                >
+                  -
+                </button>
+
+                <span style={{ margin: "0 10px" }}>
+                  {item.quantity}
+                </span>
+
+                <button
+                  onClick={() =>
+                    dispatch(updateQuantity({ id: item.id, type: "increase" }))
+                  }
+                >
+                  +
+                </button>
+              </div>
+
+              {/* Botón eliminar */}
               <button
-                onClick={() =>
-                  dispatch(updateQuantity({ id: item.id, type: "decrease" }))
-                }
+                onClick={() => dispatch(removeItem(item.id))}
+                style={{ marginLeft: "10px" }}
               >
-                -
-              </button>
-
-              <button
-                onClick={() =>
-                  dispatch(updateQuantity({ id: item.id, type: "increase" }))
-                }
-              >
-                +
-              </button>
-
-              <button onClick={() => dispatch(removeItem(item.id))}>
                 Remove
               </button>
             </div>
           ))}
 
-          <h3>Total: ${total}</h3>
+          {/* TOTAL GENERAL */}
+          <h3 style={{ marginTop: "20px" }}>
+            Total: ${getTotal()}
+          </h3>
         </>
       )}
     </div>
