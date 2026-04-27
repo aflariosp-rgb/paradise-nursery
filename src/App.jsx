@@ -11,10 +11,11 @@ function App() {
   return (
     <div style={{ padding: "20px" }}>
 
-      {/* 🔴 AQUÍ VA EL BLOQUE DE LANDING */}
+      {/* 🏠 LANDING PAGE */}
       {!showProducts && !showCart && (
         <div>
-          <h1>Paradise Nursery</h1>
+          <h1>🌿 Paradise Nursery</h1>
+
           <AboutUs />
 
           <button onClick={() => setShowProducts(true)}>
@@ -23,24 +24,26 @@ function App() {
         </div>
       )}
 
-      {/* 🟡 PRODUCTOS */}
+      {/* 🌱 PRODUCTOS */}
       {showProducts && !showCart && (
         <div>
           <Navbar
             setShowCart={setShowCart}
             setShowProducts={setShowProducts}
           />
+
           <ProductList />
         </div>
       )}
 
-      {/* 🔵 CARRITO */}
+      {/* 🛒 CARRITO */}
       {showCart && (
         <div>
           <Navbar
             setShowCart={setShowCart}
             setShowProducts={setShowProducts}
           />
+
           <CartItem />
         </div>
       )}
@@ -48,3 +51,5 @@ function App() {
     </div>
   );
 }
+
+export default App;
