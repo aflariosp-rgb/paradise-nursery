@@ -5,16 +5,17 @@ function CartItem() {
   const cart = useSelector((state) => state.cart.items);
   const dispatch = useDispatch();
 
-  const getTotal = () => {
-    return cart.reduce((acc, item) => acc + item.price * item.quantity, 0);
-  };
+  const totalPrice = cart.reduce(
+    (sum, item) => sum + item.price * item.quantity,
+    0
+  );
 
   return (
     <div style={{ padding: "20px" }}>
       <h2>🛒 Shopping Cart</h2>
 
       {cart.length === 0 ? (
-        <p>Your cart is empty</p>
+        <p>No items in cart</p>
       ) : (
         <>
           {cart.map((item) => (
@@ -23,27 +24,23 @@ function CartItem() {
               style={{
                 display: "flex",
                 alignItems: "center",
-                gap: "15px",
-                borderBottom: "1px solid #ccc",
+                justifyContent: "space-between",
+                borderBottom: "1px solid #ddd",
                 padding: "10px 0",
               }}
             >
-              {/* Imagen del producto */}
               <img
                 src={item.image}
                 alt={item.name}
-                width="80"
-                height="80"
+                width="70"
+                height="70"
               />
 
-              {/* Info */}
-              <div style={{ flex: 1 }}>
+              <div>
                 <h4>{item.name}</h4>
-                <p>Price: ${item.price}</p>
-                <p>Subtotal: ${item.price * item.quantity}</p>
+                <p>${item.price}</p>
               </div>
 
-              {/* Controles cantidad */}
               <div>
                 <button
                   onClick={() =>
@@ -66,19 +63,16 @@ function CartItem() {
                 </button>
               </div>
 
-              {/* Botón eliminar */}
-              <button
-                onClick={() => dispatch(removeItem(item.id))}
-                style={{ marginLeft: "10px" }}
-              >
+              <p>${item.price * item.quantity}</p>
+
+              <button onClick={() => dispatch(removeItem(item.id))}>
                 Remove
               </button>
             </div>
           ))}
 
-          {/* TOTAL GENERAL */}
           <h3 style={{ marginTop: "20px" }}>
-            Total: ${getTotal()}
+            Total: ${totalPrice}
           </h3>
         </>
       )}
