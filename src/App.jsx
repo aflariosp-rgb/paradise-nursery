@@ -9,25 +9,21 @@ function App() {
   const [showCart, setShowCart] = useState(false);
 
   return (
-    <div>
+    <div style={{ padding: "20px" }}>
 
-      {/* LANDING PAGE */}
+      {/* 🔴 AQUÍ VA EL BLOQUE DE LANDING */}
       {!showProducts && !showCart && (
-        <div style={{ padding: "20px", textAlign: "center" }}>
-          <h1>🌿 Paradise Nursery</h1>
-
+        <div>
+          <h1>Paradise Nursery</h1>
           <AboutUs />
 
-          <button
-            onClick={() => setShowProducts(true)}
-            style={{ marginTop: "20px" }}
-          >
+          <button onClick={() => setShowProducts(true)}>
             Get Started
           </button>
         </div>
       )}
 
-      {/* PRODUCTS PAGE */}
+      {/* 🟡 PRODUCTOS */}
       {showProducts && !showCart && (
         <div>
           <Navbar
@@ -38,7 +34,7 @@ function App() {
         </div>
       )}
 
-      {/* CART PAGE */}
+      {/* 🔵 CARRITO */}
       {showCart && (
         <div>
           <Navbar
@@ -52,5 +48,3 @@ function App() {
     </div>
   );
 }
-
-export default App;
