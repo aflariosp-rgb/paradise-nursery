@@ -15,30 +15,42 @@ function ProductList() {
     { id: 6, name: "Palm", price: 35, category: "Indoor Trees", image: "https://via.placeholder.com/100" },
   ];
 
-  const categories = [...new Set(products.map(p => p.category))];
+  const categories = [...new Set(products.map((p) => p.category))];
 
   return (
     <div>
       <h2>Plants</h2>
+
       {categories.map((cat) => (
         <div key={cat}>
           <h3>{cat}</h3>
-          {products.filter(p => p.category === cat).map(product => (
-            <div key={product.id}>
-              <img src={product.image} width="100" />
-              <h4>{product.name}</h4>
-              <p>${product.price}</p>
-              <button
-                disabled={added[product.id]}
-                onClick={() => {
-                  dispatch(addItem(product));
-                  setAdded({ ...added, [product.id]: true });
-                }}
-              >
-                {added[product.id] ? "Added" : "Add to Cart"}
-              </button>
-            </div>
-          ))}
+
+          {products
+            .filter((p) => p.category === cat)
+            .map((product) => (
+              <div key={product.id} style={{ marginBottom: "15px" }}>
+                
+                <img
+                  src={product.image}
+                  width="100"
+                  alt={product.name}
+                />
+
+                <h4>{product.name}</h4>
+                <p>${product.price}</p>
+
+                <button
+                  disabled={added[product.id]}
+                  onClick={() => {
+                    dispatch(addItem(product));
+                    setAdded({ ...added, [product.id]: true });
+                  }}
+                >
+                  {added[product.id] ? "Added" : "Add to Cart"}
+                </button>
+
+              </div>
+            ))}
         </div>
       ))}
     </div>

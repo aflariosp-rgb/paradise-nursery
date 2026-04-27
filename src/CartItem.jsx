@@ -19,13 +19,12 @@ function CartItem() {
       ) : (
         items.map((item) => (
           <div key={item.id} style={{ marginBottom: "15px" }}>
-            
             <h3>{item.name}</h3>
-            <p>Unit price: ${item.price}</p>
-            <p>Subtotal: ${item.price * item.quantity}</p>
+            <p>
+              ${item.price} x {item.quantity}
+            </p>
 
-            <p>Quantity: {item.quantity}</p>
-
+            {/* AUMENTAR */}
             <button
               onClick={() =>
                 dispatch(
@@ -39,6 +38,7 @@ function CartItem() {
               +
             </button>
 
+            {/* DISMINUIR (CORREGIDO) */}
             <button
               onClick={() => {
                 if (item.quantity > 1) {
@@ -54,6 +54,7 @@ function CartItem() {
               -
             </button>
 
+            {/* ELIMINAR */}
             <button onClick={() => dispatch(removeItem(item.id))}>
               Remove
             </button>
@@ -61,9 +62,9 @@ function CartItem() {
         ))
       )}
 
-      <h3>Total: ${totalCost}</h3>
+      <h3>Total: ${totalCost.toFixed(2)}</h3>
 
-      <button onClick={() => alert("Coming Soon")}>
+      <button onClick={() => alert("Checkout coming soon 🚧")}>
         Checkout
       </button>
     </div>
